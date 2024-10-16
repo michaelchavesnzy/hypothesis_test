@@ -31,7 +31,6 @@ def plot_hist(df_1, df_2, nbinsx):
         histnorm='probability density'
     ))
 
-    # Ajustando o layout para sobrepor os histogramas
     fig.update_layout(
         barmode='overlay',
         title="Comparação de Amostras A e B",
@@ -49,11 +48,13 @@ def generate_sample_normal(mean, dp, n):
 def stats_test_t(df_1, df_2, equal_var):
 
     t_stat, p_value = scipy.stats.ttest_ind(df_1, df_2, alternative='two-sided', equal_var = equal_var)
+
     return t_stat, p_value
 
 def stats_test_ks(df_1, df_2):
 
     result = scipy.stats.ks_2samp(df_1, df_2)
+    
     return result 
 
 def st_sidebar():
@@ -86,8 +87,6 @@ def st_body():
         Índice de significância: 5%
         """)
 
-    #st.header('Simulador Teste T para Duas Amostras')
-
     # Gerar amostra A e B e plotar
     np.random.seed(999)
     sample_a = generate_sample_normal(mean_a, dp_a, n_a)
@@ -109,8 +108,11 @@ def st_body():
         st.write(f"Estatística t: {t_stat:.4f}, Valor-p: {p_value:.4f}")
  
         if p_value < 0.05:
+
             st.markdown("*Resultado*: Rejeitamos a hipótese nula (H0). As médias são estatisticamente diferentes.")
+
         else:
+
             st.markdown("*Resultado*: Não rejeitamos a hipótese nula (H0). Não há evidências suficientes para afirmar que as médias são diferentes.")
     
     with st.expander("Resultado Teste Kolmogorov-Smirnov (KS)", expanded=True):
@@ -120,8 +122,11 @@ def st_body():
         st.write(f"Estatística ks: {result_ks.statistic:.4f}, Valor-p: {result_ks.pvalue:.4f}")
 
         if result_ks.pvalue < 0.05:
+
             st.markdown("*Resultado*: Rejeitamos a hipótese nula (H0): as distribuições são diferentes.")
+
         else:
+
             st.markdown("*Resultado*: Não rejeitamos a hipótese nula (H0): não há evidência suficiente para dizer que as distribuições são diferentes.")
 
 def main():
