@@ -105,8 +105,3 @@ if __name__ == "__main__":
 
     st_sidebar()  
     st_body()    
-
-    #explicativo teste (resumo) - tipo de teste (bicaldal)
-    #construir hipóteses
-    #evidênciar resultado com base no p-valor
-    #usuário definir número de bins 
